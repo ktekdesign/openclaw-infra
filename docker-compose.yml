@@ -15,11 +15,14 @@ services:
       - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
 
     ports:
-      - "8888:8888"
+      - "8888:80"
+      - "4443:443"
 
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./traefik/acme.json:/acme.json"
+
+    restart: unless-stopped
 
   openclaw:
     image: ghcr.io/openclaw/openclaw:latest
